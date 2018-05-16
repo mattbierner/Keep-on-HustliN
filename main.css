@@ -60,8 +60,8 @@ body.on-hustle:before {
 .title img {
     max-width: 100%;
     width: 500px;
-    -webkit-mask: url(/images/title.svg);
-    mask: url(/images/title.svg);
+    -webkit-mask: url(images/title.svg);
+    mask: url(images/title.svg);
     background: var(--text-color);
     user-select: none;
     pointer-events: none;
@@ -85,13 +85,13 @@ body.on-hustle:before {
 
 .title:before {
     background-size: 100%;
-    background-image: url(/images/title.svg);
+    background-image: url(images/title.svg);
     filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.2));
     z-index: -1;
 }
 .title:after {
-    -webkit-mask: url(/images/title.svg);
-    mask: url(/images/title.svg);
+    -webkit-mask: url(images/title.svg);
+    mask: url(images/title.svg);
     background: linear-gradient(rgba(255, 255, 255, 0), var(--dirty-gold));
     opacity: 0;
     transition: opacity 8s;
@@ -139,8 +139,8 @@ body.on-hustle:before {
 
 .speaker:after {
     content: "";
-    -webkit-mask: url(/images/speaker.svg);
-    mask: url(/images/speaker.svg);
+    -webkit-mask: url(images/speaker.svg);
+    mask: url(images/speaker.svg);
     width: 100%;
     height: 100%;
     position: absolute;
@@ -207,8 +207,8 @@ body.on-hustle:before {
     width: 100%;
     height: 100%;
     background: var(--text-color);
-    -webkit-mask: url('/images/hustle-bar.svg');
-    mask: url('/images/hustle-bar.svg');
+    -webkit-mask: url(images/hustle-bar.svg);
+    mask: url(images/hustle-bar.svg);
     -webkit-mask-position: center; 
     mask-position: center; 
     -webkit-mask-repeat: no-repeat;
@@ -227,7 +227,7 @@ body.on-hustle:before {
     top: 0;
     left: 0;
     background-repeat: no-repeat;
-    background-image: url(/images/hustle-bar.svg);
+    background-image: url(images/hustle-bar.svg);
     background-position: center;
     filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
     z-index: -1;
