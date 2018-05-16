@@ -1,0 +1,5 @@
+exclude:
+  - node_modules
+  - Checker
+  - host.json
+  - local.settings.json
