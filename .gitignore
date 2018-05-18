@@ -25,6 +25,5 @@ local.settings.json
 .DS_Store
 
 node_modules
-Checker/*
 data
 _site
