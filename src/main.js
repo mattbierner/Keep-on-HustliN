@@ -5,7 +5,7 @@
     const latestDataUrl = 'https://keeponhustlin.blob.core.windows.net/data-v0/latest'
     const checkInterval = 15 * 1000;
 
-    const latestTime = Date.now() - 5000 - 10000000;
+    let latestTime = Date.now() - 30000; // last 30 seconds
 
     class HustleMonitor {
         /**
@@ -18,17 +18,11 @@
             this.buffer = this.loadSong();
 
             this.checkHustle();
-            setInterval(() => this.checkHustle, checkInterval);
+            setInterval(() => this.checkHustle(), checkInterval);
         }
 
         beginHustle() {
             ++this.currentHustle;
-
-            document.body.classList.remove('on-hustle');
-            document.body.classList.add('on-hustle');
-
-            const speakers = /** @type {HTMLElement} */(document.querySelector('.speakers'))
-            speakers.style.visibility = 'visible';
 
             this.playHustle();
         }
@@ -46,12 +40,17 @@
                 source.buffer = buffer;
                 source.connect(gainNode);
 
-                source.addEventListener('onended', () => {
+                setTimeout(() => source.start(0), 500);
+
+                setTimeout(() => {
                     if (this.currentHustle === currentHustle) {
                         document.body.classList.remove('on-hustle');
                     }
-                });
-                setTimeout(() => source.start(), 500);
+                }, (3 * 60 + 45) * 1000);
+
+                document.body.classList.add('on-hustle');
+                const speakers = /** @type {HTMLElement} */(document.querySelector('.speakers'))
+                speakers.style.visibility = 'visible';
             });
         }
 
@@ -60,11 +59,12 @@
             const data = await response.json();
 
             const element = document.getElementById('latest-hustle-time');
-            element.textContent = new Date(data.time * 1000).toTimeString();
+            element.textContent = new Date(data.time * 1000).toString();
             element.setAttribute('href', `https://news.ycombinator.com/item?id=${data.id}`);
 
             if (data.time * 1000 > latestTime) {
                 this.beginHustle();
+                latestTime = data.time * 1000;
             }
         }
 
@@ -84,13 +84,20 @@
         }
     }
 
-
     const button = /** @type {HTMLButtonElement} */(document.querySelector('.activate-hustle-button'));
     button.addEventListener('click', () => {
         button.style.display = 'none';
         document.querySelector('.activated-hustle-info').style.display = 'block';
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Play nothing to init on iOS
+        const buffer = audioCtx.createBuffer(1, 1, 22050);
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioCtx.destination);
+        source.start(0);
+
         new HustleMonitor(audioCtx);
     });
 }()); 

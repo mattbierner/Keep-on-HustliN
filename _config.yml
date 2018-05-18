@@ -3,3 +3,4 @@ exclude:
   - Checker
   - host.json
   - local.settings.json
+  - data

@@ -6,12 +6,14 @@
 }
 
 html, body {
+    width: 100%;
     min-height: 100%;
     margin: 0;
     padding: 0;
     font-size: 18px;
     color: var(--text-color);
     font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
 }
 
 a {
@@ -30,7 +32,6 @@ body {
     display: flex;
     flex-direction: column;
     color: var(--text-color);
-    overflow-x: hidden;
     position: relative;
     min-height: 100vh;
 }
@@ -49,7 +50,7 @@ body.on-hustle:before {
 }
 
 .site-header {
-    margin-bottom: 6em;
+    margin-bottom: 4em;
 }
 
 .title {
@@ -269,11 +270,15 @@ body.on-hustle:before {
     display: none;
 }
 
-
-.site-nav a {
-    margin: 0 1em;
+.site-nav {
+    margin-bottom: 6em;
+    display: flex;
 }
-
+.site-nav a {
+    flex: 1;
+    margin: 0 1em;
+    text-align: center;
+}
 
 .site-footer {
     font-size: 0.8em;
@@ -317,7 +322,7 @@ body.on-hustle:before {
 
 @media only screen and (max-height: 800px) {
     .site-header {
-        margin-bottom: 3em;
+        margin-bottom: 2em;
     }
 
     .title img {

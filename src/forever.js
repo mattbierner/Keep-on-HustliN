@@ -8,16 +8,12 @@
          */
         constructor(audioCtx) {
             this.audioCtx = audioCtx;
+            this.inited = false;
 
             this.buffer = this.loadSong();
 
-            document.body.classList.add('on-hustle');
-            
-            const speakers = /** @type {HTMLElement} */(document.querySelector('.speakers'))
-            speakers.style.visibility = 'visible';
-        
             this.beginHustle();
-            setInterval(() => this.beginHustle(), 10000)
+            setInterval(() => this.beginHustle(), 10 * 1000)
         }
 
         beginHustle() {
@@ -36,6 +32,14 @@
                 source.buffer = buffer;
                 source.connect(gainNode);
                 source.start();
+
+                if (!this.inited) {
+                    this.inited = true;
+                    document.body.classList.add('on-hustle');
+
+                    const speakers = /** @type {HTMLElement} */(document.querySelector('.speakers'))
+                    speakers.style.visibility = 'visible';
+                }
             });
         }
 
@@ -59,7 +63,15 @@
     const button = /** @type {HTMLButtonElement} */(document.querySelector('.activate-hustle-button'));
     button.addEventListener('click', () => {
         button.style.display = 'none';
+        
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // Play nothing to init on iOS
+        const buffer = audioCtx.createBuffer(1, 1, 22050);
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioCtx.destination);
+        source.start(0);
+
         new HustleMonitor(audioCtx);
     });
 }()); 
